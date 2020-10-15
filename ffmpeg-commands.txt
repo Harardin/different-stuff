@@ -1,0 +1,14 @@
+// Different ffmpeg commands
+
+// Commands and excample how to segmentially save video stream from rtsp and then stream it in to HTML5 video tag.
+ffmpeg -fflags nobuffer -rtsp_transport tcp -i [RTSP_ADDRESS] -vsync 0 -copyts -vcodec copy -movflags frag_keyframe+empty_moov -an -hls_flags delete_segments+append_list \
+-f segment \
+-segment_list_flags live \
+-segment_time 5 \
+-segment_list_size 3 \ // Limits stream size better remove if you want to stream whole record.
+-segment_format mpegts \
+-segment_list stream/index.m3u8 \
+-segment_list_type m3u8 \
+-segment_list_entry_prefix stream/ stream/%d.ts
+
+-> https://github.com/video-dev/hls.js // Excample how to stream
