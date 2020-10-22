@@ -1,0 +1,10 @@
+// Set environment variables
+// --- Excample
+$env:GOOS = "linux"
+$env:GOARCH = "amd64"
+etc...
+
+// Build
+go build -o "AppName"
+
+// As simple as that.
