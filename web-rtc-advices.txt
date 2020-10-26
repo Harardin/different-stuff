@@ -1,0 +1,18 @@
+In case of connection does not matter if it answer or offer creation.
+
+Always should wait for OnICEGathering finish to fullfill all ICE clients.
+
+Excample in golang:
+peerConnection.OnICEGatheringStateChange(func(st webrtc.ICEGathererState) {
+		switch st {
+		case webrtc.ICEGathererStateGathering:
+			fmt.Println("Gathering candidates")
+		case webrtc.ICEGathererStateComplete:
+			localDesc := peerConnection.CurrentLocalDescription()
+			key, _ := json.Marshal(localDesc)
+			baseKey := base64.StdEncoding.EncodeToString(key)
+			s.RTCAnswer <- &baseKey
+		}
+	})
+  
+  `case webrtc.ICEGathererStateComplete` gathering finished now SessionDescription can be taken and sended to recipient.
